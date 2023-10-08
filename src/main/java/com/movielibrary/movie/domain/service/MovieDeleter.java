@@ -16,7 +16,7 @@ public class MovieDeleter {
     private final MovieRetriever movieRetriever;
 
     public void deleteById(Long id) {
-        Movie byId = movieRetriever.findById(id);
+        Movie byId = movieRetriever.getMovieById(id);
         log.info("Deleting movie: " + byId.getTitle());
         movieRepository.deleteById(id);
     }

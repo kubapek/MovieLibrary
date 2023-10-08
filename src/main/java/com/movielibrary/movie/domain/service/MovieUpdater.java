@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
 public class MovieUpdater {
     private final MovieRetriever movieRetriever;
     private final MovieRepository movieRepository;
+
     public Movie updateMovieById(Long id, Movie newMovie) {
-        movieRetriever.findById(id);
+        movieRetriever.getMovieById(id);
         log.info("Updating movie at index: " + id + " to " + newMovie.getTitle());
         return movieRepository.updateById(id, newMovie);
     }

@@ -14,11 +14,11 @@ import java.util.List;
 public class MovieRetriever {
     private final MovieRepository movieRepository;
 
-    public List<Movie> findAll() {
+    public List<Movie> getAll() {
         return movieRepository.findAll();
     }
 
-    public Movie findById(Long id) {
+    public Movie getMovieById(Long id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Movie with id: " + id + " not found"));
     }
