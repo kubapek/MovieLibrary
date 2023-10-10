@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS movie
+(
+    id     BIGSERIAL    PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    director   VARCHAR(255) NOT NULL
+);
