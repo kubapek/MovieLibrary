@@ -1,6 +1,7 @@
 package com.movielibrary.movie.domain.service;
 
 import com.movielibrary.movie.domain.model.Movie;
+import com.movielibrary.movie.domain.model.MovieExistsException;
 import com.movielibrary.movie.domain.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class MovieAdder {
             log.info("adding new movie:" + movie.getTitle());
             return movieRepository.save(movie);
         } else {
-            throw new IllegalStateException("This movie already exists");
+            throw new MovieExistsException("This movie already exists");
         }
     }
 }
