@@ -1,6 +1,7 @@
 package com.movielibrary.movie.domain.service;
 
 import com.movielibrary.movie.domain.model.Movie;
+import com.movielibrary.movie.domain.model.MovieNotFoundException;
 import com.movielibrary.movie.domain.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +21,12 @@ public class MovieRetriever {
 
     public Movie getMovieById(Long id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Movie with id: " + id + " not found"));
+                .orElseThrow(() -> new MovieNotFoundException("Movie with id: " + id + " not found"));
+    }
+
+    public void existsById(Long id) {
+        if(!movieRepository.existsById(id)) {
+            throw new MovieNotFoundException("Movie with id: " + id + " not found");
+        }
     }
 }
