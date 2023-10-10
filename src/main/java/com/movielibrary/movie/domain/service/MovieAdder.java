@@ -13,7 +13,13 @@ import org.springframework.stereotype.Service;
 public class MovieAdder {
     private final MovieRepository movieRepository;
     public Movie addMovie(Movie movie) {
-        log.info("adding new movie: " + movie.getTitle());
-        return movieRepository.save(movie);
+        Movie existingMovie = movieRepository.findByTitle(movie.getTitle());
+
+        if (existingMovie == null || !existingMovie.getDirector().equals(movie.getDirector())) {
+            log.info("adding new movie:" + movie.getTitle());
+            return movieRepository.save(movie);
+        } else {
+            throw new IllegalStateException("This movie already exists");
+        }
     }
 }

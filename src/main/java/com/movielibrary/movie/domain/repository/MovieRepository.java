@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query("UPDATE Movie m SET m.title = :#{#newMovie.title}, m.director = :#{#newMovie.director} WHERE m.id = :id")
-    Movie updateById(Long id, Movie newMovie);
+    void updateById(Long id, Movie newMovie);
+    Movie findByTitle(String title);
 }

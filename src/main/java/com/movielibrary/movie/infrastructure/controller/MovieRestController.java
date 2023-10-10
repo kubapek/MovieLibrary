@@ -54,12 +54,11 @@ public class MovieRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieDto> updateMovieById(@PathVariable Long id,
+    public ResponseEntity<Void> updateMovieById(@PathVariable Long id,
                                                     @RequestBody @Valid MovieRequestDto updateMovie) {
         Movie movie = mapFromRequestToMovie(updateMovie);
-        Movie updatedMovie = movieUpdater.updateMovieById(id, movie);
-        MovieDto movieDto = mapToDto(updatedMovie);
-        return ResponseEntity.ok(movieDto);
+        movieUpdater.updateMovieById(id, movie);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")

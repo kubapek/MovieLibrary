@@ -15,9 +15,9 @@ public class MovieUpdater {
     private final MovieRetriever movieRetriever;
     private final MovieRepository movieRepository;
 
-    public Movie updateMovieById(Long id, Movie newMovie) {
+    public void updateMovieById(Long id, Movie newMovie) {
         movieRetriever.getMovieById(id);
         log.info("Updating movie at index: " + id + " to " + newMovie.getTitle());
-        return movieRepository.updateById(id, newMovie);
+        movieRepository.updateById(id, newMovie);
     }
 }
