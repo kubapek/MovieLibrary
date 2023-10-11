@@ -1,15 +1,30 @@
 version: "3.8"
 services:
-  db:
-    image: postgres
-    container_name: local_pgdb
-    restart: always
-    ports:
-      - "5432:5432"
+  postgres:
+    container_name: my-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: postgres
+    image: library/postgres:latest
+    ports:
+      - "5432:5432"
+
+  flyway:
+    container_name: my-flyway
+    environment:
+      FLYWAY_USER: user
+      FLYWAY_PASSWORD: admin
+      FLYWAY_URL: jdbc:postgresql://postgres:5432/postgres
+      FLYWAY_SCHEMAS: public
+      FLYWAY_GROUP: true
+    image: flyway/flyway:latest
+    command: -locations=filesystem:/flyway/sql -connectRetries=60 migrate
+    volumes:
+      - ./sql_versions:/flyway/sql
+    depends_on:
+      - postgres
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
